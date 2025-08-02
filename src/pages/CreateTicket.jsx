@@ -25,13 +25,14 @@ const   CreateTicket = () => {
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem("token")
+      
       const response = await axios.get("http://localhost:5000/api/categories", {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
 
-      
+      console.log(response.data)
       setCategories(response.data)
     } catch (error) {
       console.error("Error fetching categories:", error)
@@ -67,9 +68,11 @@ const   CreateTicket = () => {
 
 
       const token = localStorage.getItem("token")
+      
+      console.log("Data : ",formData)
       const response = await axios.post(
         "http://localhost:5000/api/tickets",
-        submitData,
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -108,7 +111,7 @@ const   CreateTicket = () => {
           </div>
 
           <div className="form-row">
-            {/* <div className="form-group">
+            <div className="form-group">
               <label htmlFor="category">Category *</label>
               <select id="category" name="category" value={formData.category} onChange={handleInputChange} required>
                 <option value="">Select a category</option>
@@ -118,27 +121,7 @@ const   CreateTicket = () => {
                   </option>
                 ))}
               </select>
-            </div> */}
-
-            <div className="form-group">
-              <label htmlFor="category">Category *</label>
-              <select
-                id="category"
-                name="category"
-                value={formData.category}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="">Select a category</option>
-                <option value="electronics">Electronics</option>
-                <option value="clothing">Clothing</option>
-                <option value="books">Books</option>
-                <option value="furniture">Furniture</option>
-                <option value="sports">Sports</option>
-              </select>
             </div>
-
-
 
             <div className="form-group">
               <label htmlFor="priority">Priority</label>

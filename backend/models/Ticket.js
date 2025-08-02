@@ -32,9 +32,10 @@ const commentSchema = new mongoose.Schema(
 const ticketSchema = new mongoose.Schema(
   {
     ticketNumber: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       unique: true,
       required: true,
+      default: () => new mongoose.Types.ObjectId(),
     },
     subject: {
       type: String,
