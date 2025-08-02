@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
-import api from "../services/api"
+import axios from "axios"
 import "../styles/CommentSection.css"
 
 const CommentSection = ({ ticketId, comments, onCommentAdded }) => {
@@ -24,11 +24,17 @@ const CommentSection = ({ ticketId, comments, onCommentAdded }) => {
         formData.append("attachments", file)
       })
 
-      await api.post(`/tickets/${ticketId}/comments`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      const token = localStorage.getItem("token")
+      await axios.post(
+        `http://localhost:5000/api/tickets/${ticketId}/comments`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
 
       setNewComment("")
       setFiles([])

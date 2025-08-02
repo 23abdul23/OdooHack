@@ -41,7 +41,7 @@ router.post(
   [
     body("subject").trim().isLength({ min: 5 }).withMessage("Subject must be at least 5 characters"),
     body("description").trim().isLength({ min: 10 }).withMessage("Description must be at least 10 characters"),
-    body("category").isMongoId().withMessage("Valid category is required"),
+    body("category").isString().withMessage("Valid category is required"),
   ],
   async (req, res) => {
     try {

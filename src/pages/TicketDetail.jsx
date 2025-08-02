@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { useAuth } from "../contexts/AuthContext"
-import api from "../services/api"
+import axios from "axios"
 import CommentSection from "../components/CommentSection"
 import "../styles/TicketDetail.css"
 
@@ -25,7 +25,9 @@ const TicketDetail = () => {
   const fetchTicket = async () => {
     try {
       setLoading(true)
-      const response = await api.get(`/tickets/${params.id}`)
+      const token = localStorage.getItem("token")
+      const response = await axios.get(`http://localhost:5000/api/tickets/${params.id}`,
+        { headers: { Authorization: `Bearer ${token}` } })
       setTicket(response.data)
 
       // Check user's vote
@@ -43,7 +45,9 @@ const TicketDetail = () => {
 
   const handleStatusChange = async (newStatus) => {
     try {
-      await api.patch(`/tickets/${params.id}/status`, { status: newStatus })
+      const token = localStorage.getItem("token")
+      await axios.patch(`http://localhost:5000/api/tickets/${params.id}/status`, { status: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } })
       setTicket((prev) => ({ ...prev, status: newStatus }))
     } catch (error) {
       console.error("Error updating status:", error)
@@ -52,7 +56,9 @@ const TicketDetail = () => {
 
   const handleVote = async (type) => {
     try {
-      const response = await api.post(`/tickets/${params.id}/vote`, { type })
+      const token = localStorage.getItem("token")
+      const response = await axios.post(`http://localhost:5000/api/tickets/${params.id}/vote`, { type },
+        { headers: { Authorization: `Bearer ${token}` } })
       setTicket((prev) => ({
         ...prev,
         upvotes: { length: response.data.upvotes },

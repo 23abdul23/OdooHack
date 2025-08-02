@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import api from "../services/api"
+import axios from "axios"
 import "../styles/AdminPanel.css"
 
 const AdminPanel = () => {
@@ -26,7 +26,9 @@ const AdminPanel = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true)
-      const response = await api.get("/users")
+      const token = localStorage.getItem("token")
+      const response = await axios.get("http://localhost:5000/api/users",
+        { headers: { Authorization: `Bearer ${token}` } })
       setUsers(response.data)
     } catch (error) {
       console.error("Error fetching users:", error)
@@ -38,7 +40,9 @@ const AdminPanel = () => {
   const fetchCategories = async () => {
     try {
       setLoading(true)
-      const response = await api.get("/categories")
+      const token = localStorage.getItem("token")
+      const response = await axios.get("http://localhost:5000/api/categories",
+        { headers: { Authorization: `Bearer ${token}` } })
       setCategories(response.data)
     } catch (error) {
       console.error("Error fetching categories:", error)
@@ -49,7 +53,9 @@ const AdminPanel = () => {
 
   const handleRoleChange = async (userId, newRole) => {
     try {
-      await api.patch(`/users/${userId}/role`, { role: newRole })
+      const token = localStorage.getItem("token")
+      await axios.patch(`http://localhost:5000/api/users/${userId}/role`, { role: newRole },
+        { headers: { Authorization: `Bearer ${token}` } })
       setUsers(users.map((user) => (user._id === userId ? { ...user, role: newRole } : user)))
     } catch (error) {
       console.error("Error updating user role:", error)
@@ -59,7 +65,9 @@ const AdminPanel = () => {
   const handleDeactivateUser = async (userId) => {
     if (window.confirm("Are you sure you want to deactivate this user?")) {
       try {
-        await api.patch(`/users/${userId}/deactivate`)
+        const token = localStorage.getItem("token")
+        await axios.patch(`http://localhost:5000/api/users/${userId}/deactivate`, {},
+          { headers: { Authorization: `Bearer ${token}` } })
         setUsers(users.filter((user) => user._id !== userId))
       } catch (error) {
         console.error("Error deactivating user:", error)
@@ -70,7 +78,9 @@ const AdminPanel = () => {
   const handleCreateCategory = async (e) => {
     e.preventDefault()
     try {
-      const response = await api.post("/categories", newCategory)
+      const token = localStorage.getItem("token")
+      const response = await axios.post("http://localhost:5000/api/categories", newCategory,
+        { headers: { Authorization: `Bearer ${token}` } })
       setCategories([...categories, response.data])
       setNewCategory({ name: "", description: "", color: "#007bff" })
     } catch (error) {
@@ -81,7 +91,9 @@ const AdminPanel = () => {
   const handleDeleteCategory = async (categoryId) => {
     if (window.confirm("Are you sure you want to delete this category?")) {
       try {
-        await api.delete(`/categories/${categoryId}`)
+        const token = localStorage.getItem("token")
+        await axios.delete(`http://localhost:5000/api/categories/${categoryId}`,
+          { headers: { Authorization: `Bearer ${token}` } })
         setCategories(categories.filter((cat) => cat._id !== categoryId))
       } catch (error) {
         console.error("Error deleting category:", error)

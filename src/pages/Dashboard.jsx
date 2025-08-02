@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useAuth } from "../contexts/AuthContext"
-import api from "../services/api"
+import axios from "axios"
 import TicketCard from "../components/TicketCard"
 import FilterBar from "../components/FilterBar"
 import Pagination from "../components/Pagination"
@@ -42,7 +42,9 @@ const Dashboard = () => {
         ...filters,
       })
 
-      const response = await api.get(`/tickets?${params}`)
+      const token = localStorage.getItem("token")
+      const response = await axios.get(`http://localhost:5000/api/tickets?${params}`,
+        { headers: { Authorization: `Bearer ${token}` } })
       setTickets(response.data.tickets)
       setPagination({
         currentPage: response.data.currentPage,
@@ -58,7 +60,9 @@ const Dashboard = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await api.get("/categories")
+      const token = localStorage.getItem("token")
+      const response = await axios.get("http://localhost:5000/api/categories",
+        { headers: { Authorization: `Bearer ${token}` } })
       setCategories(response.data)
     } catch (error) {
       console.error("Error fetching categories:", error)

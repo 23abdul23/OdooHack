@@ -2,31 +2,37 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import api from "../services/api"
+import axios from "axios"
 import "../styles/CreateTicket.css"
 
-const CreateTicket = () => {
+const   CreateTicket = () => {
   const router = useRouter()
   const [categories, setCategories] = useState([])
   const [formData, setFormData] = useState({
     subject: "",
     description: "",
-    category: "testA",
+    category: "",
     priority: "medium",
   })
   const [files, setFiles] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
-
+  
   useEffect(() => {
     fetchCategories()
   }, [])
 
   const fetchCategories = async () => {
     try {
-      const response = await api.get("/categories")
-      setCategories(['A', 'B', 'C'])
-      setCategories([...categories, ...response.data])
+      const token = localStorage.getItem("token")
+      const response = await axios.get("http://localhost:5000/api/categories", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      
+      setCategories(response.data)
     } catch (error) {
       console.error("Error fetching categories:", error)
     }
@@ -59,11 +65,18 @@ const CreateTicket = () => {
         submitData.append("attachments", file)
       })
 
-      const response = await api.post("/tickets", submitData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+
+      const token = localStorage.getItem("token")
+      const response = await axios.post(
+        "http://localhost:5000/api/tickets",
+        submitData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
 
       router.push(`/ticket/${response.data._id}`)
     } catch (error) {
@@ -95,7 +108,7 @@ const CreateTicket = () => {
           </div>
 
           <div className="form-row">
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="category">Category *</label>
               <select id="category" name="category" value={formData.category} onChange={handleInputChange} required>
                 <option value="">Select a category</option>
@@ -105,7 +118,27 @@ const CreateTicket = () => {
                   </option>
                 ))}
               </select>
+            </div> */}
+
+            <div className="form-group">
+              <label htmlFor="category">Category *</label>
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select a category</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="books">Books</option>
+                <option value="furniture">Furniture</option>
+                <option value="sports">Sports</option>
+              </select>
             </div>
+
+
 
             <div className="form-group">
               <label htmlFor="priority">Priority</label>
