@@ -24,5 +24,8 @@ async def get_similar_tickets(req:TicketReq):
 
 @app.post("/add")
 async def add_ticket(req:TicketId):
-    return add_ticket(req.id)
-    
+    print(req.id)
+  
+    add_ticket_in_json(req.id)
+   
+    print(f"🔥 Error in /add: {e}")  

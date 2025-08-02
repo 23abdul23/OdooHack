@@ -36,7 +36,7 @@ const upload = multer({
 
 // Create ticket
 router.post(
-  "/",
+  "/create",
   auth,
   upload.array("attachments", 5),
   [
@@ -62,8 +62,8 @@ router.post(
           }))
         : []
 
-      //const similiarTicket = await axios.post("http://127.0.0.1:8000/ticket", req.body)
-      
+      const similiarTicket = await axios.post("http://localhost:8000/load", { ticket: description })
+      console.log(similiarTicket)
       
       const ticket = new Ticket({
         subject,
@@ -74,11 +74,17 @@ router.post(
         attachments,
       })
 
+
       await ticket.save()
       await ticket.populate("category", "name email")
       await ticket.populate("createdBy", "name email")
 
-      res.status(201).json(ticket)
+      const addTicket = await axios.post("http://localhost:8000/add",{id:ticket._id})
+
+      res.status(201).json({
+        ticket,
+        similiarTicket:  similiarTicket?.data || [],
+      });
     } catch (error) {
       console.error(error)
       res.status(500).json({ message: "Server error" })
@@ -87,7 +93,7 @@ router.post(
 )
 
 // Get tickets with filtering and pagination
-router.get("/", auth, async (req, res) => {
+router.get("/getTickets", auth, async (req, res) => {
   try {
     const {
       page = 1,

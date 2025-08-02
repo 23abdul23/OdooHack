@@ -89,7 +89,7 @@ def load_vector_store_and_fetch_similar_tickets(query: str, top_k: int = 3, json
 
 
 
-query = "wifi issue in building A"
-results = load_vector_store_and_fetch_similar_tickets(query)
+# query = "wifi issue in building A"
+# results = load_vector_store_and_fetch_similar_tickets(query)
 
-print(results)
+# print(results)

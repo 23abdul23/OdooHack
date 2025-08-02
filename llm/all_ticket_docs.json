@@ -7,5 +7,23 @@
       "priority": "urgent",
       "status": "resolved"
     }
+  },
+  {
+    "page_content": "Ticket #688db56baa77fdddb0e5dd7a\n        Subject: wifi not working on my window issue\n        Description: test chat this is working\n        Category: test1\n        Priority: medium\n        Status: open",
+    "metadata": {
+      "ticket_id": "688db56baa77fdddb0e5dd79",
+      "category": "test1",
+      "priority": "medium",
+      "status": "open"
+    }
+  },
+  {
+    "page_content": "Ticket #688dcbc85b720cba7196add5\n        Subject: Wifi Not working\n        Description: Wifi is not there\n        Category: test1\n        Priority: high\n        Status: open",
+    "metadata": {
+      "ticket_id": "688dcbc85b720cba7196add4",
+      "category": "test1",
+      "priority": "high",
+      "status": "open"
+    }
   }
 ]

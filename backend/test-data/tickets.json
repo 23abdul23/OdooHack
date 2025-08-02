@@ -1,5 +1,51 @@
 [{
   "_id": {
+    "$oid": "688da115ba4f96c4125565ae"
+  },
+  "ticketNumber": "QD-000001",
+  "subject": "Wi-Fi not working in building A",
+  "description": "Cannot connect to office Wi-Fi since yesterday afternoon.",
+  "category": {
+    "$oid": "64d001f8a71e4c1d1d001001"
+  },
+  "priority": "urgent",
+  "status": "resolved",
+  "createdBy": {
+    "$oid": "64eabc1234567890abcdef01"
+  },
+  "assignedTo": {
+    "$oid": "64eabc1234567890abcdef02"
+  },
+  "comments": [
+    {
+      "user": {
+        "$oid": "64eabc1234567890abcdef02"
+      },
+      "message": "Rebooted router. Should work now.",
+      "isInternal": false,
+      "createdAt": {
+        "$date": "2025-08-02T05:24:37.725Z"
+      },
+      "updatedAt": {
+        "$date": "2025-08-02T05:24:37.725Z"
+      }
+    }
+  ],
+  "resolvedAt": {
+    "$date": "2025-08-02T05:24:37.725Z"
+  },
+  "closedAt": {
+    "$date": "2025-08-02T05:24:37.725Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-02T05:24:37.725Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-02T05:24:37.725Z"
+  }
+},
+{
+  "_id": {
     "$oid": "688db0f8ed9f864d1aca4aaa"
   },
   "subject": "ticekt 12 testing a ticjker",
