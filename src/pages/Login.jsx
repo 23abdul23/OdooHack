@@ -14,6 +14,7 @@ const Login = () => {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const { login } = useAuth()
+  const router = useRouter()
 
   const handleChange = (e) => {
     setFormData({
@@ -29,7 +30,14 @@ const Login = () => {
 
     const result = await login(formData.email, formData.password)
 
-    if (!result.success) {
+    if (result.success) {
+      // Redirect based on user role
+      if (result.user.role === "admin" || result.user.role === "agent") {
+        router.push("/admin-dashboard")
+      } else {
+        router.push("/client-dashboard")
+      }
+    } else {
       setError(result.message)
     }
 
