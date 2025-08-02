@@ -55,7 +55,7 @@ function AppContent() {
           <Route
             path="/admin-dashboard"
             element={
-              <ProtectedRoute roles={["admin"]}>
+              <ProtectedRoute roles={["admin", "agent"]}>
                 <AdminDashboard />
               </ProtectedRoute>
             }
@@ -63,7 +63,7 @@ function AppContent() {
           <Route
             path="/client-dashboard"
             element={
-              <ProtectedRoute roles={["user", "client"]}>
+              <ProtectedRoute roles={["user"]}>
                 <ClientDashboard />
               </ProtectedRoute>
             }
