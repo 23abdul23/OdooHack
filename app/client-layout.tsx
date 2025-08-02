@@ -8,7 +8,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
   const { user } = useAuth()
 
   return (
-    <div className="App">
+    <div className={`App ${user ? 'has-navbar' : ''}`}>
       {user && <Navbar />}
       <main className="main-content">
         {children}
