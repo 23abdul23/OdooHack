@@ -38,7 +38,6 @@ const upload = multer({
 // Create ticket
 router.post(
   "/create",
-  auth,
   upload.array("attachments", 5),
   [
     body("subject").trim().isLength({ min: 1 }).withMessage("Subject must be at least 5 characters"),

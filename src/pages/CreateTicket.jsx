@@ -71,7 +71,7 @@ const   CreateTicket = () => {
       
       console.log("Data : ",formData)
       const response = await axios.post(
-        "http://localhost:5000/api/tickets",
+        "http://localhost:5000/api/tickets/create",
         formData,
         {
           headers: {
