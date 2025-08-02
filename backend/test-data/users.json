@@ -1,0 +1,54 @@
+[{
+  "_id": {
+    "$oid": "688d87606fac1cedd129e6b7"
+  },
+  "name": "Abdul",
+  "email": "1234@gmail.com",
+  "password": "$2b$10$dyXuxHJyaPfGNa1YBRYafeehVHznkTPTovuX59sUeiNNBDCVHZJ5m",
+  "role": "user",
+  "isActive": true,
+  "avatar": "",
+  "createdAt": {
+    "$date": "2025-08-02T03:34:56.608Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-02T03:34:56.608Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688d8fb37296bdda2b07d295"
+  },
+  "name": "Rajma",
+  "email": "123@gmail.com",
+  "password": "$2a$10$9yd.1Kxd3jRd08myka/Q3u5aJCwuA79U7iiVASFq0CoIy9ojrIRQC",
+  "role": "user",
+  "isActive": true,
+  "avatar": "",
+  "createdAt": {
+    "$date": "2025-08-02T04:10:27.359Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-02T04:10:27.359Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688da308cfcfae7d23ed4328"
+  },
+  "name": "Nitrogen",
+  "email": "abc@gmail.com",
+  "password": "$2a$10$HyGzT7q41AThuNrJWByOdexzYFRhK7h6cWC577T2H5/ttXVKusikW",
+  "role": "admin",
+  "isActive": true,
+  "avatar": "",
+  "createdAt": {
+    "$date": "2025-08-02T05:32:56.093Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-02T05:32:56.093Z"
+  },
+  "__v": 0
+}]

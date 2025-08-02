@@ -1,0 +1,76 @@
+[{
+  "_id": {
+    "$oid": "688dadd39a5b5a8344b31ddf"
+  },
+  "name": "test1",
+  "description": "dva",
+  "color": "#007bff",
+  "isActive": true,
+  "createdBy": {
+    "$oid": "688da308cfcfae7d23ed4328"
+  },
+  "createdAt": {
+    "$date": "2025-08-02T06:18:59.166Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-02T06:18:59.166Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688dade69a5b5a8344b31de4"
+  },
+  "name": "test2",
+  "description": "vdavdav",
+  "color": "#c80909",
+  "isActive": true,
+  "createdBy": {
+    "$oid": "688da308cfcfae7d23ed4328"
+  },
+  "createdAt": {
+    "$date": "2025-08-02T06:19:18.937Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-02T06:19:18.937Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688dadf99a5b5a8344b31de9"
+  },
+  "name": "test3",
+  "description": "kjiodvka",
+  "color": "#007bff",
+  "isActive": false,
+  "createdBy": {
+    "$oid": "688da308cfcfae7d23ed4328"
+  },
+  "createdAt": {
+    "$date": "2025-08-02T06:19:37.360Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-02T06:19:40.101Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688dae129a5b5a8344b31df6"
+  },
+  "name": "test34",
+  "description": "vadbv",
+  "color": "#5b9569",
+  "isActive": true,
+  "createdBy": {
+    "$oid": "688da308cfcfae7d23ed4328"
+  },
+  "createdAt": {
+    "$date": "2025-08-02T06:20:02.119Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-02T06:20:02.119Z"
+  },
+  "__v": 0
+}]
