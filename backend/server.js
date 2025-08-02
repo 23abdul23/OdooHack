@@ -26,8 +26,16 @@ mongoose
   .catch((err) => console.log("MongoDB connection error:", err))
 
 // Routes
+app.use("/api/auth", require("./routes/auth"))
+app.use("/api/tickets", require("./routes/tickets"))
+app.use("/api/categories", require("./routes/categories"))
+app.use("/api/users", require("./routes/users"))
 
-
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).json({ message: "Something went wrong!" })
+})
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
