@@ -32,9 +32,13 @@ const Login = () => {
 
     if (result.success) {
       // Redirect based on user role
-      if (result.user.role === "admin" || result.user.role === "agent") {
+      if (result.user.role === "admin") {
         router.push("/admin-dashboard")
-      } else {
+      } 
+      if (result.user.role === "agent"){
+        router.push("/agent-dashboard")
+      }
+      else {
         router.push("/client-dashboard")
       }
     } else {

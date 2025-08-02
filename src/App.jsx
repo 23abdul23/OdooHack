@@ -7,6 +7,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import AdminDashboard from "./pages/AdminDashboard"
 import ClientDashboard from "./pages/ClientDashboard"
+import AgentDashboard from "./pages/AgentDashboard"
 import CreateTicket from "./pages/CreateTicket"
 import TicketDetail from "./pages/TicketDetail"
 import AdminPanel from "./pages/AdminPanel"
@@ -36,7 +37,11 @@ function DashboardRoute() {
   
   if (user?.role === 'admin') {
     return <AdminDashboard />
-  } else {
+  } 
+  if (user?.role === 'agent') {
+    return <AgentDashboard />
+  }
+  else {
     return <ClientDashboard />
   }
 }
