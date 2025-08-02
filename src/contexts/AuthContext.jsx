@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect } from "react"
-import api from "../services/api"
+import axios from "axios"
 
 const AuthContext = createContext()
 
@@ -20,20 +20,20 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem("token")
     if (token) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`
-      fetchUser()
+      fetchUser(token)
     } else {
       setLoading(false)
     }
   }, [])
 
-  const fetchUser = async () => {
+  const fetchUser = async (token) => {
     try {
-      const response = await api.get("/auth/me")
+      const response = await axios.get("http://localhost:5000/api/auth/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       setUser(response.data.user)
     } catch (error) {
       localStorage.removeItem("token")
-      delete api.defaults.headers.common["Authorization"]
     } finally {
       setLoading(false)
     }
@@ -41,11 +41,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await api.post("/auth/login", { email, password })
+      const response = await axios.post("http://localhost:5000/api/auth/login", { email, password })
       const { token, user } = response.data
 
       localStorage.setItem("token", token)
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`
       setUser(user)
 
       return { success: true }
@@ -59,11 +58,10 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password, role = "user") => {
     try {
-      const response = await api.post("/auth/register", { name, email, password, role })
+      const response = await axios.post("http://localhost:5000/api/auth/register", { name, email, password, role })
       const { token, user } = response.data
 
       localStorage.setItem("token", token)
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`
       setUser(user)
 
       return { success: true }
@@ -77,7 +75,6 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("token")
-    delete api.defaults.headers.common["Authorization"]
     setUser(null)
   }
 
