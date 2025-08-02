@@ -35,7 +35,7 @@ const Register = () => {
       return
     }
 
-    const result = await register(formData.name, formData.email, formData.password)
+    const result = await register(formData.name, formData.email, formData.password, formData.role)
 
     if (!result.success) {
       setError(result.message)
@@ -60,6 +60,15 @@ const Register = () => {
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <select id="role" name="role" value={formData.role} onChange={handleChange} required>
+              <option value="user">User</option>
+              <option value="agent">Agent</option>  
+              <option value="admin">Admin</option>
+            </select> 
           </div>
 
           <div className="form-group">
