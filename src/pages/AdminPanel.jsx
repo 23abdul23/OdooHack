@@ -8,6 +8,7 @@ const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("users")
   const [users, setUsers] = useState([])
   const [categories, setCategories] = useState([])
+  const [upgradeRequests, setUpgradeRequests] = useState([])
   const [loading, setLoading] = useState(false)
   const [newCategory, setNewCategory] = useState({
     name: "",
@@ -20,6 +21,8 @@ const AdminPanel = () => {
       fetchUsers()
     } else if (activeTab === "categories") {
       fetchCategories()
+    } else if (activeTab === "upgrades") {
+      fetchUpgradeRequests()
     }
   }, [activeTab])
 
@@ -46,6 +49,20 @@ const AdminPanel = () => {
       setCategories(response.data)
     } catch (error) {
       console.error("Error fetching categories:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const fetchUpgradeRequests = async () => {
+    try {
+      setLoading(true)
+      const token = localStorage.getItem("token")
+      const response = await axios.get("http://localhost:5000/api/upgrade-requests",
+        { headers: { Authorization: `Bearer ${token}` } })
+      setUpgradeRequests(response.data)
+    } catch (error) {
+      console.error("Error fetching upgrade requests:", error)
     } finally {
       setLoading(false)
     }
@@ -101,6 +118,25 @@ const AdminPanel = () => {
     }
   }
 
+  const handleUpgradeRequest = async (requestId, action, adminNotes = "") => {
+    try {
+      const token = localStorage.getItem("token")
+      await axios.put(`http://localhost:5000/api/upgrade-requests/${requestId}`, 
+        { status: action, adminNotes },
+        { headers: { Authorization: `Bearer ${token}` } })
+      
+      // Update the request in the local state
+      setUpgradeRequests(upgradeRequests.map(req => 
+        req._id === requestId ? { ...req, status: action, adminNotes } : req
+      ))
+      
+      alert(`Request ${action} successfully!`)
+    } catch (error) {
+      console.error("Error updating upgrade request:", error)
+      alert("Failed to update request. Please try again.")
+    }
+  }
+
   return (
     <div className="admin-panel">
       <h1>Admin Panel</h1>
@@ -111,6 +147,9 @@ const AdminPanel = () => {
         </button>
         <button className={activeTab === "categories" ? "active" : ""} onClick={() => setActiveTab("categories")}>
           Category Management
+        </button>
+        <button className={activeTab === "upgrades" ? "active" : ""} onClick={() => setActiveTab("upgrades")}>
+          Upgrade Requests
         </button>
       </div>
 
@@ -210,6 +249,133 @@ const AdminPanel = () => {
                   </button>
                 </div>
               ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeTab === "upgrades" && (
+        <div className="upgrades-section">
+          <h2>Upgrade Requests</h2>
+          {loading ? (
+            <div className="loading">Loading upgrade requests...</div>
+          ) : (
+            <div className="upgrade-requests-container">
+              {upgradeRequests.length === 0 ? (
+                <div className="no-requests">
+                  <div className="no-requests-icon">
+                    📧
+                  </div>
+                  <h3>No upgrade requests</h3>
+                  <p>There are currently no pending upgrade requests to review.</p>
+                </div>
+              ) : (
+                upgradeRequests.map((request) => (
+                  <div key={request._id} className={`upgrade-request-card ${request.status}`}>
+                    <div className="request-header">
+                      <div className="request-sender">
+                        <div className="sender-avatar">
+                          {request.userName?.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="sender-info">
+                          <h4>{request.userName}</h4>
+                          <p>{request.userEmail}</p>
+                          <span className="request-date">
+                            {new Date(request.createdAt).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="request-status-badge">
+                        <span className={`status-indicator ${request.status}`}>
+                          {request.status.toUpperCase()}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="request-subject">
+                      <h3>
+                        <span className="upgrade-arrow">⬆️</span>
+                        Role Upgrade Request: {request.currentRole} → {request.requestedRole}
+                      </h3>
+                    </div>
+
+                    <div className="request-body">
+                      <div className="request-details">
+                        <div className="detail-row">
+                          <strong>Current Role:</strong>
+                          <span className={`role-badge ${request.currentRole}`}>
+                            {request.currentRole}
+                          </span>
+                        </div>
+                        <div className="detail-row">
+                          <strong>Requested Role:</strong>
+                          <span className={`role-badge ${request.requestedRole}`}>
+                            {request.requestedRole}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="request-reason">
+                        <h4>📝 Reason for Upgrade:</h4>
+                        <div className="reason-text">
+                          {request.reason}
+                        </div>
+                      </div>
+
+                      {request.adminNotes && (
+                        <div className="admin-notes">
+                          <h4>🔖 Admin Notes:</h4>
+                          <div className="notes-text">
+                            {request.adminNotes}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {request.status === "pending" && (
+                      <div className="request-actions">
+                        <button 
+                          onClick={() => {
+                            const notes = prompt("Add admin notes (optional):");
+                            handleUpgradeRequest(request._id, "approved", notes || "");
+                          }}
+                          className="approve-btn"
+                        >
+                          ✅ Approve Request
+                        </button>
+                        <button 
+                          onClick={() => {
+                            const notes = prompt("Add rejection reason:");
+                            if (notes) {
+                              handleUpgradeRequest(request._id, "rejected", notes);
+                            }
+                          }}
+                          className="reject-btn"
+                        >
+                          ❌ Reject Request
+                        </button>
+                      </div>
+                    )}
+
+                    {request.status !== "pending" && (
+                      <div className="request-footer">
+                        <span className="review-info">
+                          {request.status === "approved" ? "✅" : "❌"} 
+                          {request.status === "approved" ? "Approved" : "Rejected"} 
+                          {request.reviewedAt && ` on ${new Date(request.reviewedAt).toLocaleDateString()}`}
+                          {request.reviewedBy && ` by ${request.reviewedBy.name}`}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
             </div>
           )}
         </div>

@@ -33,6 +33,7 @@ app.use("/api/auth", require("./routes/auth"))
 app.use("/api/tickets", require("./routes/tickets"))
 app.use("/api/categories", require("./routes/categories"))
 app.use("/api/users", require("./routes/users"))
+app.use("/api/upgrade-requests", require("./routes/upgradeRequests"))
 
 // Error handling middleware
 app.use((err, req, res, next) => {
