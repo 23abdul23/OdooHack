@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "688db0f8ed9f864d1aca4aaa"
+  },
+  "subject": "ticekt 12 testing a ticjker",
+  "description": "test tlakldalvdab",
+  "category": {
+    "$oid": "688dade69a5b5a8344b31de4"
+  },
+  "priority": "medium",
+  "status": "open",
+  "createdBy": {
+    "$oid": "688d8fb37296bdda2b07d295"
+  },
+  "attachments": [],
+  "upvotes": [],
+  "downvotes": [],
+  "tags": [],
+  "ticketNumber": {
+    "$oid": "688db0f8ed9f864d1aca4aab"
+  },
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-08-02T06:32:24.813Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-02T06:32:24.813Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "688db56baa77fdddb0e5dd79"
+  },
+  "subject": "wifi not working on my window issue",
+  "description": "test chat this is working",
+  "category": {
+    "$oid": "688dadd39a5b5a8344b31ddf"
+  },
+  "priority": "medium",
+  "status": "open",
+  "createdBy": {
+    "$oid": "688d8fb37296bdda2b07d295"
+  },
+  "attachments": [],
+  "upvotes": [],
+  "downvotes": [],
+  "tags": [],
+  "ticketNumber": {
+    "$oid": "688db56baa77fdddb0e5dd7a"
+  },
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-08-02T06:51:23.168Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-02T06:51:23.168Z"
+  },
+  "__v": 0
+}]
