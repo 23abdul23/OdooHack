@@ -6,7 +6,13 @@
 
 .main-content {
   flex: 1;
-  padding-top: 70px; /* Account for fixed navbar */
+  padding-top: 0; /* Remove fixed padding */
+  transition: padding-top 0.2s ease;
+}
+
+/* Add padding only when navbar is present */
+.App.has-navbar .main-content {
+  padding-top: 70px;
 }
 
 .container {

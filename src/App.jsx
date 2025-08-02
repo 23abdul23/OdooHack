@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import AdminDashboard from "./pages/AdminDashboard"
+import ClientDashboard from "./pages/ClientDashboard"
 import CreateTicket from "./pages/CreateTicket"
 import TicketDetail from "./pages/TicketDetail"
 import AdminPanel from "./pages/AdminPanel"
@@ -28,6 +29,18 @@ function ProtectedRoute({ children, roles }) {
 
   return children
 }
+
+// Dashboard Route Component - redirects based on user role
+function DashboardRoute() {
+  const { user } = useAuth()
+  
+  if (user?.role === 'admin') {
+    return <AdminDashboard />
+  } else {
+    return <ClientDashboard />
+  }
+}
+
 function AppContent() {
   const { user } = useAuth()
 
@@ -44,7 +57,23 @@ function AppContent() {
             path="/dashboard"
             element={
               <ProtectedRoute>
+                <DashboardRoute />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin-dashboard"
+            element={
+              <ProtectedRoute roles={["admin", "agent"]}>
                 <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/client-dashboard"
+            element={
+              <ProtectedRoute roles={["user"]}>
+                <ClientDashboard />
               </ProtectedRoute>
             }
           />
