@@ -1,4 +1,5 @@
 const express = require("express")
+const axios = require("axios")
 const multer = require("multer")
 const path = require("path")
 const { body, validationResult } = require("express-validator")
@@ -39,9 +40,9 @@ router.post(
   auth,
   upload.array("attachments", 5),
   [
-    body("subject").trim().isLength({ min: 5 }).withMessage("Subject must be at least 5 characters"),
-    body("description").trim().isLength({ min: 10 }).withMessage("Description must be at least 10 characters"),
-    body("category").isString().withMessage("Valid category is required"),
+    body("subject").trim().isLength({ min: 1 }).withMessage("Subject must be at least 5 characters"),
+    body("description").trim().isLength({ min: 1 }).withMessage("Description must be at least 10 characters"),
+    body("category").isMongoId().withMessage("Valid category is required"),
   ],
   async (req, res) => {
     try {
@@ -61,7 +62,7 @@ router.post(
           }))
         : []
 
-      const similiarTicket = await axios.post("http://127.0.0.1:8000/ticet", req.body)
+      //const similiarTicket = await axios.post("http://127.0.0.1:8000/ticket", req.body)
       
       
       const ticket = new Ticket({
@@ -74,7 +75,8 @@ router.post(
       })
 
       await ticket.save()
-      await ticket.populate(["category", "createdBy"], "name email")
+      await ticket.populate("category", "name email")
+      await ticket.populate("createdBy", "name email")
 
       res.status(201).json(ticket)
     } catch (error) {
