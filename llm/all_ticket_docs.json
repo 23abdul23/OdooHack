@@ -1,0 +1,11 @@
+[
+  {
+    "page_content": "Ticket #QD-000001\n        Subject: Wi-Fi not working in building A\n        Description: Cannot connect to office Wi-Fi since yesterday afternoon.\n        Category: Networking\n        Priority: urgent\n        Status: resolved",
+    "metadata": {
+      "ticket_id": "688da115ba4f96c4125565ae",
+      "category": "Networking",
+      "priority": "urgent",
+      "status": "resolved"
+    }
+  }
+]
