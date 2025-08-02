@@ -93,12 +93,14 @@ const   CreateTicket = () => {
     <div className="create-ticket">
       <div className="create-ticket-container">
         <div className="header-section">
-          <div className="icon-wrapper">
-            <svg className="ticket-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
+          <div className="title-row">
+            <div className="icon-wrapper">
+              <svg className="ticket-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+            </div>
+            <h1>Create New Ticket</h1>
           </div>
-          <h1>Create New Ticket</h1>
           <p className="subtitle">Submit your issue and get expert support</p>
         </div>
 
@@ -114,17 +116,13 @@ const   CreateTicket = () => {
         <form onSubmit={handleSubmit} className="ticket-form">
           <div className="form-section">
             <h3 className="section-title">
-              <span className="section-number">1</span>
+              <svg className="section-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-1l-4 4z" />
+              </svg>
               Basic Information
             </h3>
             
             <div className="form-group">
-              <label htmlFor="subject" className="form-label">
-                <svg className="label-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-1l-4 4z" />
-                </svg>
-                Subject *
-              </label>
               <input
                 type="text"
                 id="subject"
@@ -140,18 +138,14 @@ const   CreateTicket = () => {
 
           <div className="form-section">
             <h3 className="section-title">
-              <span className="section-number">2</span>
+              <svg className="section-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              </svg>
               Category & Priority
             </h3>
             
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="category" className="form-label">
-                  <svg className="label-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                  </svg>
-                  Category *
-                </label>
                 <select 
                   id="category" 
                   name="category" 
@@ -170,12 +164,6 @@ const   CreateTicket = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="priority" className="form-label">
-                  <svg className="label-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                  Priority
-                </label>
                 <select 
                   id="priority" 
                   name="priority" 
@@ -194,17 +182,13 @@ const   CreateTicket = () => {
 
           <div className="form-section">
             <h3 className="section-title">
-              <span className="section-number">3</span>
+              <svg className="section-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
               Description
             </h3>
             
             <div className="form-group">
-              <label htmlFor="description" className="form-label">
-                <svg className="label-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Description *
-              </label>
               <textarea
                 id="description"
                 name="description"
@@ -220,17 +204,13 @@ const   CreateTicket = () => {
 
           <div className="form-section">
             <h3 className="section-title">
-              <span className="section-number">4</span>
+              <svg className="section-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+              </svg>
               Attachments
             </h3>
             
             <div className="form-group">
-              <label htmlFor="attachments" className="form-label">
-                <svg className="label-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                </svg>
-                Attachments
-              </label>
               <div className="file-upload-area">
                 <input
                   type="file"
