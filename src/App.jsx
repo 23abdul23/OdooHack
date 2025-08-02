@@ -5,7 +5,7 @@ import { useAuth } from "./contexts/AuthContext"
 import Navbar from "./components/Navbar"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
-import Dashboard from "./pages/Dashboard"
+import AdminDashboard from "./pages/AdminDashboard"
 import CreateTicket from "./pages/CreateTicket"
 import TicketDetail from "./pages/TicketDetail"
 import AdminPanel from "./pages/AdminPanel"
@@ -36,7 +36,7 @@ function AppContent() {
             path="/dashboard"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <AdminDashboard />
               </ProtectedRoute>
             }
           />
