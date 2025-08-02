@@ -2,6 +2,7 @@ const express = require("express")
 const axios = require("axios")
 const multer = require("multer")
 const path = require("path")
+const mongoose = require("mongoose")
 const { body, validationResult } = require("express-validator")
 const Ticket = require("../models/Ticket")
 const { auth, authorize } = require("../middleware/auth")
@@ -287,6 +288,56 @@ router.post("/:id/vote", auth, async (req, res) => {
       downvotes: ticket.downvotes.length,
       userVote: type,
     })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: "Server error" })
+  }
+})
+
+// Get user ticket statistics
+router.get("/user/:userId/stats", auth, async (req, res) => {
+  try {
+    const userId = req.params.userId
+
+    // Ensure user can only access their own stats (unless admin)
+    if (req.user.role !== "admin" && req.user._id.toString() !== userId) {
+      return res.status(403).json({ message: "Access denied" })
+    }
+
+    const stats = await Ticket.aggregate([
+      { $match: { createdBy: mongoose.Types.ObjectId(userId) } },
+      {
+        $group: {
+          _id: "$status",
+          count: { $sum: 1 }
+        }
+      }
+    ])
+
+    const totalTickets = await Ticket.countDocuments({ createdBy: userId })
+    
+    const formattedStats = {
+      totalTickets,
+      openTickets: 0,
+      closedTickets: 0,
+      inProgressTickets: 0
+    }
+
+    stats.forEach(stat => {
+      switch (stat._id) {
+        case 'open':
+          formattedStats.openTickets = stat.count
+          break
+        case 'closed':
+          formattedStats.closedTickets = stat.count
+          break
+        case 'in-progress':
+          formattedStats.inProgressTickets = stat.count
+          break
+      }
+    })
+
+    res.json(formattedStats)
   } catch (error) {
     console.error(error)
     res.status(500).json({ message: "Server error" })
