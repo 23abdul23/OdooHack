@@ -61,6 +61,9 @@ router.post(
           }))
         : []
 
+      const similiarTicket = await axios.post("http://127.0.0.1:8000/ticet", req.body)
+      
+      
       const ticket = new Ticket({
         subject,
         description,
