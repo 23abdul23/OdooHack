@@ -9,6 +9,12 @@
   height: 70px;
 }
 
+/* Ensure no space is reserved when navbar is hidden */
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .navbar-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -78,6 +84,119 @@
 
 .logout-btn:hover {
   background-color: #c82333;
+}
+
+/* Profile Dropdown Styles */
+.navbar-profile {
+  position: relative;
+  margin-left: 1rem;
+}
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 20px;  /* <-- This controls the gap */
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.profile-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.profile-pic {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.default-profile-icon {
+  background-color: #e9ecef;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 250px;
+  z-index: 1001;
+  overflow: hidden;
+}
+
+.dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f8f9fa;
+}
+
+.dropdown-profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.dropdown-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.dropdown-role {
+  background-color: #007bff;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  color: #333;
+  text-decoration: none;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-item.logout-btn {
+  color: #dc3545;
+  border-top: 1px solid #e0e0e0;
+}
+
+.dropdown-item.logout-btn:hover {
+  background-color: #f8f9fa;
+  color: #c82333;
 }
 
 @media (max-width: 768px) {
