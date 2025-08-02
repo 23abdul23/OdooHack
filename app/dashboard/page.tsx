@@ -1,7 +1,7 @@
 "use client"
 
-import Dashboard from "../../src/pages/Dashboard"
+import AdminDashboard from "../../src/pages/AdminDashboard"
 
 export default function DashboardPage() {
-  return <Dashboard />
+  return <AdminDashboard />
 }
