@@ -17,20 +17,28 @@ function ProtectedRoute({ children, roles }) {
 
   if (loading) return <div className="loading">Loading...</div>
   if (!user) return <Navigate to="/login" />
-  if (roles && !roles.includes(user.role)) return <Navigate to="/dashboard" />
+
+  
+  // If user does not have access to this route, redirect them to their dashboard
+  if (roles && !roles.includes(user.role)) {
+    if (user.role === "user") return <Navigate to="/user-dashboard" />
+    if (user.role === "agent") return <Navigate to="/agent-dashboard" />
+    return <Navigate to="/dashboard" />
+  }
 
   return children
 }
-
 function AppContent() {
   const { user } = useAuth()
+
+  console.log(user)
 
   return (
     <div className="App">
       {user && <Navbar />}
       <main className="main-content">
         <Routes>
-          <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
+          <Route path="/login" element={!user ? <Login /> : user.role === "admin" ? <Navigate to="/admin-dashboard" /> : user.role === "agent" ? <Navigate to="/agent-dashboard" /> : <Navigate to="/user-dashboard" />} />
           <Route path="/register" element={!user ? <Register /> : <Navigate to="/dashboard" />} />
           <Route
             path="/dashboard"
