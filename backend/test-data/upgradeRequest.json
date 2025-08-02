@@ -1,0 +1,35 @@
+[
+  {
+    "_id": "65f1234567890abcdef12345",
+    "userId": "65f1111567890abcdef11111",
+    "userName": "John Smith",
+    "userEmail": "john.smith@example.com",
+    "currentRole": "user",
+    "requestedRole": "agent",
+    "reason": "I have extensive experience in technical support and have been helping other users resolve their issues in our company. I would like to take on more responsibility as an agent to provide better support to our team. I have 3+ years of IT experience and excellent problem-solving skills.",
+    "status": "pending",
+    "createdAt": "2024-03-15T08:30:00.000Z"
+  },
+  {
+    "_id": "65f2234567890abcdef23456",
+    "userId": "65f2222567890abcdef22222",
+    "userName": "Sarah Johnson",
+    "userEmail": "sarah.johnson@example.com",
+    "currentRole": "user",
+    "requestedRole": "agent",
+    "reason": "I am requesting upgrade to agent role as I have been consistently helping colleagues with technical issues and have received positive feedback. I have completed several IT certifications and believe I can contribute more effectively as an agent. My goal is to reduce response times and improve user satisfaction.",
+    "status": "pending",
+    "createdAt": "2024-03-16T14:15:00.000Z"
+  },
+  {
+    "_id": "65f3234567890abcdef34567",
+    "userId": "65f3333567890abcdef33333",
+    "userName": "Mike Rodriguez",
+    "userEmail": "mike.rodriguez@example.com",
+    "currentRole": "agent",
+    "requestedRole": "admin",
+    "reason": "As a senior agent with 2 years of experience in this role, I am ready to take on administrative responsibilities. I have successfully handled complex tickets, mentored new agents, and have shown leadership qualities. I would like to help with user management, system administration, and strategic decision-making to improve our support operations.",
+    "status": "pending",
+    "createdAt": "2024-03-17T10:45:00.000Z"
+  }
+]
