@@ -8,13 +8,37 @@ import TicketCard from "../components/TicketCard"
 import "../styles/ClientDashboard.css"
 
 const ClientDashboard = () => {
-  const { user } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const router = useRouter()
   const [closedTickets, setClosedTickets] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
   const [loading, setLoading] = useState(false)
   const [searchResults, setSearchResults] = useState([])
   const [hasSearched, setHasSearched] = useState(false)
+
+  // Authentication guard
+  useEffect(() => {
+    if (!authLoading) {
+      if (!user) {
+        router.push("/login")
+        return
+      }
+      if (user.role === "admin" || user.role === "agent") {
+        router.push("/admin-dashboard")
+        return
+      }
+    }
+  }, [user, authLoading, router])
+
+  // Show loading while checking authentication
+  if (authLoading) {
+    return <div className="loading-spinner">Loading...</div>
+  }
+
+  // Don't render anything if user is not authenticated
+  if (!user || (user.role !== "user" && user.role !== "client")) {
+    return null
+  }
 
   useEffect(() => {
     fetchClosedTickets()

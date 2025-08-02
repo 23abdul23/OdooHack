@@ -34,6 +34,7 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data.user)
     } catch (error) {
       localStorage.removeItem("token")
+      setUser(null) // Explicitly set user to null on error
     } finally {
       setLoading(false)
     }

@@ -6,7 +6,7 @@ const { auth, authorize } = require("../middleware/auth")
 const router = express.Router()
 
 // Get all categories
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const categories = await Category.find({ isActive: true }).populate("createdBy", "name").sort({ name: 1 })
     res.json(categories)

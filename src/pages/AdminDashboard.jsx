@@ -10,11 +10,26 @@ import FilterBar from "../components/FilterBar"
 import Pagination from "../components/Pagination"
 
 const AdminDashboard = () => {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState("dashboard")
   const [tickets, setTickets] = useState([])
   const [categories, setCategories] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [dashboardLoading, setDashboardLoading] = useState(true)
+
+  // Authentication guard
+  useEffect(() => {
+    if (!loading) {
+      if (!user) {
+        router.push("/login")
+        return
+      }
+      if (user.role !== "admin" && user.role !== "agent") {
+        router.push("/client-dashboard")
+        return
+      }
+    }
+  }, [user, loading, router])
   const [showCreateCategory, setShowCreateCategory] = useState(false)
   const [newCategory, setNewCategory] = useState({
     name: "",
@@ -35,6 +50,16 @@ const AdminDashboard = () => {
     total: 0,
   })
 
+  // Show loading while checking authentication
+  if (loading) {
+    return <div className="loading-spinner">Loading...</div>
+  }
+
+  // Don't render anything if user is not authenticated or authorized
+  if (!user || (user.role !== "admin" && user.role !== "agent")) {
+    return null
+  }
+
   useEffect(() => {
     fetchTickets()
     fetchCategories()
@@ -52,7 +77,7 @@ const AdminDashboard = () => {
 
   const fetchTickets = async () => {
     try {
-      setLoading(true)
+      setDashboardLoading(true)
       
       // Check if any filters are actively being used
       const activeFilters = hasActiveFilters && (
@@ -92,7 +117,7 @@ const AdminDashboard = () => {
     } catch (error) {
       console.error("Error fetching tickets:", error)
     } finally {
-      setLoading(false)
+      setDashboardLoading(false)
     }
   }
 
